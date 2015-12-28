@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Bootstrap Calendars</title>
+<link href="bootstrap.min.css" media="all" rel="stylesheet" />
+<link href="bootstrap-datetimepicker.min.css" media="all" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="jquery.calendars.min.js"></script>
+<script src="jquery.calendars.ummalqura.min.js"></script>
+<script src="jquery.calendars.ummalqura-ar.js"></script>
+<script src="bootstrap-calendars.min.js"></script>
+<script src="bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+
+<div class="row">
+	<div class="col-md-3 col-md-offset-1">
+		<h3>Default Calendar</h3>
+		<div class='input-group date' id='datetimepicker1'>
+		    <input type='text' class="form-control" />
+		    <span class="input-group-addon">
+		        <span class="glyphicon glyphicon-calendar"></span>
+		    </span>
+		</div>
+		<h3>Specific Calendar</h3>
+		<div class='input-group date' id='datetimepicker2'>
+		    <input type='text' class="form-control" />
+		    <span class="input-group-addon">
+		        <span class="glyphicon glyphicon-calendar"></span>
+		    </span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function () {
+	//Default
+	$('#datetimepicker1').datetimepicker();
+
+	// Umm ALqura Calendar
+	$('#datetimepicker2').datetimepicker({
+	    locale: {calender: 'ummalqura', lang: 'ar'}
+	});
+});
+</script>
+</body>
+</html>

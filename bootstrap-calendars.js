@@ -61,8 +61,8 @@
                     minute < 0 || minute > 59 ? true :
                     second < 0 || second > 59 ? true : false;
             if (error) {
-                throw "Invalid time: {0}:{1}:{2} {4}".replace(/\{0\}/, hour).
-                replace(/\{1\}/, minute).replace(/\{2\}/, second);
+                throw "Invalid time: {0}:{1}:{2} {4}".replace(/\{0\}/, hour).replace(/\{1\}/, minute).replace(/\{2\}/, second);
+
             }
         },
 
@@ -253,7 +253,10 @@
             this._time._hour < datetime._time._hour ? -1 :
             unit === 'h' ? 0 :
             this._time._minute > datetime._time._minute ? 1 :
-            this._time._minute < datetime._time._minute ? -1 : 0;
+            this._time._minute < datetime._time._minute ? -1 :
+            unit === 's' ? 0 :
+            this._time._second > datetime._time._second ? 1 :
+            this._time._second < datetime._time._second ? -1 : 0;
     }
 
     function isBetween(from, to, unit) {
@@ -412,6 +415,7 @@
             ['MM', '%m'],
             ['A', '%a'],
             ['SS', '%S'],
+            ['ss', '%S'],
             ['X', '%s'],
             ['YYYY', '%Y'],
             ['LT', '%h:%M %a'],
@@ -436,7 +440,18 @@
         return this.day();
     }
 
+    function isObject(input) {
+    /* src : moment.js  */
+    // IE8 will treat undefined and null as object if it wasn't for
+    // input != null
+    return input != null && Object.prototype.toString.call(input) === '[object Object]';
+  }
     function CDateTime_Constructor(strDateTime, format, strict) {
+         // Patch: check if we given only one argument of type object, returning CDateTime with proper date set.
+         if ((arguments.length == 1) && isObject(strDateTime)) {
+            return new CDateTime(strDateTime._date, strDateTime._time);
+        }
+        
         return arguments.length >= 2 ?
             (new CDateTime()).strptime(strDateTime, (typeof format !== 'string') ? format[0] : format) :
             new CDateTime();
